@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_struct.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
+/*   Updated: 2026/01/19 14:29:15 by radib            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_STRUCT_H
+# define MINISHELL_STRUCT_H
+
+# include <stddef.h>
+# include <stdbool.h>
+
+// LEXER
+typedef enum e_token_type
+{
+	TOK_WORD,
+	TOK_PIPE,
+	TOK_HEREDOC,
+	TOK_REDIR_IN,
+	TOK_APPEND,
+	TOK_REDIR_OUT,
+	TOK_ERROR,
+	TOK_EOF
+}	t_token_type;
+
+typedef struct s_tokens
+{
+	t_token_type	type;
+	int				quote;
+	char			*token;
+}	t_tokens;
+
+// ENV
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+	int				status;
+}	t_env;
+
+typedef enum e_redir_type
+{
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type	type;
+	int				quoted;
+	char			*target;
+	struct s_redir	*next;
+}	t_redir;
+
+typedef enum e_command_type
+{
+	CMD_SIMPLE
+}	t_command_type;
+
+typedef struct s_command
+{
+	char				**argv;
+	size_t				argc;
+	t_redir				*redirs;
+	bool				pipe_before;
+	bool				pipe_after;
+	t_command_type		type;
+	struct s_command	*next;
+}	t_command;
+
+typedef struct s_shell
+{
+	t_env			*env;
+	t_tokens		*token;
+	char			*error;
+	struct s_shell	*next;
+}	t_shell;
+
+typedef struct s_pipex
+{
+	int		infile;
+	int		outfile;
+	int		prev_fd;
+	char	**envp;
+}	t_pipex;
+
+typedef struct s_struct
+{
+	t_shell		**node;
+	t_command	**head;
+	t_command	**tail;
+	t_command	**current;
+	bool		*pipe_pending;
+}	t_struct;
+
+typedef struct s_long_long_verif
+{
+	long long	nbr;
+	int			status;
+}	t_long_verif;
+#endif
