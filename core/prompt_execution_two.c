@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:34:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 01:18:40 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 02:12:02 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	wait_children(pid_t last_pid, int count)
 	return (exit_code);
 }
 
-int	run_pipeline(t_shell *tokens, t_env *env)
+int	run_pipeline(t_shell *tokens, t_env *env, int last_status)
 {
 	t_command	*cmds;
 	int			status;
@@ -73,20 +73,11 @@ int	run_pipeline(t_shell *tokens, t_env *env)
 	status = 0;
 	if (!parser(tokens, &cmds))
 		status = 2;
-	    // Debug: print quote value for each token
-    t_shell *cur = tokens;
-    while (cur)
-    {
-        if (cur->token)
-        {
-            printf("token: '%s', quote: %d\n",
-                   cur->token->token ? cur->token->token : "(null)",
-                   cur->token->quote);
-        }
-        cur = cur->next;
-    }
-	/*else*/ if (cmds && cmds->argv)
+	else if (cmds && cmds->argv)
+	{
+		expand_commands(cmds, env, last_status);
 		status = execute_commands(cmds, env, 0);
+	}
 	free_command_list(&cmds);
 	return (status);
 }
