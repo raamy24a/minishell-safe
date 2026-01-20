@@ -6,11 +6,11 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 11:37:46 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:09:00 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 00:11:09 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	syntax_error(char *token, t_shell *sh)
 {

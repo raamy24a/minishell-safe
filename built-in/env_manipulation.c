@@ -6,12 +6,11 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 07:23:43 by radib             #+#    #+#             */
-/*   Updated: 2026/01/17 05:18:06 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 00:11:13 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "../libft/libft.h"
+#include "../includes/minishell.h"
 
 t_env	*ft_lstlast_env(t_env *lst)
 {

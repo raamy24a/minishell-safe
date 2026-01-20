@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/19 14:29:15 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 00:34:32 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef enum e_command_type
 typedef struct s_command
 {
 	char				**argv;
+	int					*quotes;
 	size_t				argc;
 	t_redir				*redirs;
 	bool				pipe_before;

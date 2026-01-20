@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:34:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/15 15:24:48 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 01:18:40 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ pid_t	launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 {
 	pid_t				pid;
 
+	if (!cmd->argv)
+		return (0);
 	if (is_builtin(cmd->argv[0]))
 		return (exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
 	else
@@ -71,7 +73,19 @@ int	run_pipeline(t_shell *tokens, t_env *env)
 	status = 0;
 	if (!parser(tokens, &cmds))
 		status = 2;
-	else if (cmds && cmds->argv)
+	    // Debug: print quote value for each token
+    t_shell *cur = tokens;
+    while (cur)
+    {
+        if (cur->token)
+        {
+            printf("token: '%s', quote: %d\n",
+                   cur->token->token ? cur->token->token : "(null)",
+                   cur->token->quote);
+        }
+        cur = cur->next;
+    }
+	/*else*/ if (cmds && cmds->argv)
 		status = execute_commands(cmds, env, 0);
 	free_command_list(&cmds);
 	return (status);

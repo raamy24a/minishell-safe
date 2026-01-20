@@ -6,19 +6,19 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/16 04:52:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/19 22:17:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	exec_error(char **args, char *msg, int code)
-{
-	if (msg)
-		ft_putendl_fd(msg, STDERR_FILENO);
-	free_split(args);
-	return (code);
-}
+// static int	exec_error(char **args, char *msg, int code)
+// {
+// 	if (msg)
+// 		ft_putendl_fd(msg, STDERR_FILENO);
+// 	free_split(args);
+// 	return (code);
+// }
 
 // static char	**build_args(char *cmd)
 // {
@@ -32,7 +32,7 @@ int	px_exec(char **args, char **env_str)
 	char	*path;
 
 	if (!args || !args[0])
-		return (exec_error(args, "Error: empty command", EXIT_FAILURE));
+		return (0);
 	path = px_find_path(args[0], env_str);
 	if (!path)
 	{

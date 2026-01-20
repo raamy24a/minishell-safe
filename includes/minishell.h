@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/19 19:43:43 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 00:22:38 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char			**env_to_char_array(t_env *env, int i);
 
 /* Signaux*/
 void			handler(int sig);
+/*expend*/
+void 			expand_commands(t_command *cmds, t_env *env, int last_status);
 
 /* init_shell.c */
 t_env			*init_shell(char **envp);
