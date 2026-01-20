@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:34:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 02:12:02 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 11:59:36 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	prompt_execution(char *user_input, t_env *env)
 	if (!lexer(user_input, &token_list))
 		status = 2;
 	else if (token_list)
-		status = run_pipeline(token_list, env);
+		status = run_pipeline(token_list, env, status);
 	free_token_list(&token_list);
 	return (status);
 }

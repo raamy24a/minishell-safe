@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 00:20:02 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 02:15:07 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 16:47:34 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,94 @@ static char	*strip_quotes(const char *token)
 	return (result);
 }
 
-void	expand_commands(t_command *cmds, t_env *env, int last_status)
+char	**expand_dollars(char *s, int x, t_env *env)
 {
-	
+	t_env	*tmp;
+	char	*temp;
+	char	**return_str;
+
+	return_str = malloc(sizeof(char *) * 3);
+	tmp = env;
+	while (s[x] >= '0' && (s[x] <= '9' || s[x] >= 'A')
+		&& (s[x] <= 'Z' || s[x] >= 'a') && (s[x] <= 'z' || s[x] == '_'))
+		x++;
+	temp = malloc(sizeof(char) * (x + 1));
+	if (!temp)
+		exit_call(1, env);
+	x = 0;
+	while (s[x] >= '0' && (s[x] <= '9' || s[x] >= 'A')
+		&& (s[x] <= 'Z' || s[x] >= 'a') && (s[x] <= 'z' || s[x] == '_'))
+	{
+		temp[x] = s[x];
+		x++;
+	}
+	temp[x] = '\0';
+	return_str[0] = get_value_of_key(env, temp);
+	return_str[2] = NULL;
+	return_str[1] = &s[x];
+	return (free(temp), return_str);
+}
+
+int	expand_str(char *str, char **argv, int i)
+{
+	char	*copy;
+
+	copy = ft_strdup(*argv);
+	copy[i] = '\0';
+	(*argv) = ft_strjoin(copy, str);
+	free(copy);
+	if (!*argv)
+		return (-1);
+	return (ft_strlen(str) - 1);
+}
+int	expand_str_two(char **str, char **argv, int i)
+{
+	char	*copy;
+	char	*temp;
+
+	copy = ft_strdup(*argv);
+	copy[i] = '\0';
+	temp = ft_strjoin(copy, str[0]);
+	(*argv) = ft_strjoin(temp, str[1]);
+	free(copy);
+	if (!*argv)
+		return (-1);
+	return (ft_strlen(str[0]) - 1);
+}
+
+int	expand_argv(char **argv, int i, int last_status, t_env *env)
+{
+	int	last;
+
+	while (argv[0][i])
+	{
+		last = i;
+		if (argv[0][i] == '$')
+		{
+			if (argv[0][i + 1] && argv[0][i + 1] == '?')
+				i += expand_str(ft_itoa(last_status), argv, i);
+			else
+				i += expand_str_two(expand_dollars(&argv[0][i + 1], 0, env), argv, i);
+		}
+		if (i < last)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	expand_commands (t_command *cmds, t_env *env, int last_status)
+{
+	int	i;
+
+	while (cmds)
+	{
+		i = -1;
+		while (cmds->argv[++i])
+		{
+			expand_argv(&cmds->argv[i], 0, last_status, env);
+			cmds->argv[i] = strip_quotes(cmds->argv[i]);
+		}
+		cmds = cmds->next;
+	}
 }

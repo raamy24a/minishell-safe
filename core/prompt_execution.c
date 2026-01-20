@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/19 15:06:41 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/20 15:20:14 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	exec_builtin(int x, char **command, t_env *env)
 
 	temp = NULL;
 	if (x == 1)
-		return (echobuiltin(&command[1], env, 1, 0));
+		return (echobuiltin(&command[1], 1, 0));
 	if (x == 2)
 		return (call_pwd());
 	if (x == 3)
