@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 00:20:02 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 00:33:33 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 23:45:02 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	expand_str_two(char **str, char **argv, int i)
 {
 	char	*copy;
 	char	*temp;
+	int		x;
 
 	copy = ft_strdup(*argv);
 	copy[i] = '\0';
@@ -115,7 +116,10 @@ int	expand_str_two(char **str, char **argv, int i)
 	free(copy);
 	if (!*argv)
 		return (-1);
-	return (ft_strlen(str[0]) - 1);
+	x = ft_strlen(str[0]);
+	if (!x)
+		x++;
+	return (x - 1);
 }
 int	skip_single(char *argv, int i)
 {
@@ -149,7 +153,8 @@ int	expand_argv(char **argv, int i, int last_status, t_env *env)
 		}
 		if (i < last)
 			return (1);
-		i++;
+		if (argv[0][i] && argv[0][i] != '$')
+			i++;
 	}
 	return (0);
 }
