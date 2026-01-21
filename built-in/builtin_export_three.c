@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 18:14:18 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 19:48:42 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 11:08:22 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	export_new_var(t_env *temp, char **to_export, int equal)
 		return ;
 	new->key = ft_strdup(to_export[0]);
 	new->value = ft_strdup(to_export[1]);
-	new->status = equal_choice(equal, temp->value);
+	new->status = equal_choice(equal, new->value);
 	new->next = NULL;
 	temp->next = new;
 }

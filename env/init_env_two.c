@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:56:06 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 17:31:03 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 13:09:31 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,18 @@ t_env	*init_env(char **env, int i)
 	while (env[i])
 		i++;
 	if (i < 10)
-		head = default_env(ft_split(ft_strjoin (ft_strjoin
-						("PWD=", get_pwd()), "-SHLVL=0-_=/usr/bin/env-OLDPWD"), "-"));
-	else
+		env = ft_split(ft_strjoin (ft_strjoin
+				("PWD=", get_pwd()), "-SHLVL=0-_=/usr/bin/env-OLDPWD"), "-");
+	while (*env)
 	{
-		while (*env)
+		node = duplicate_env(*env);
+		if (!node)
 		{
-			node = duplicate_env(*env);
-			if (!node)
-			{
-				free_env(&head);
-				return (NULL);
-			}
-			add_to_env(&head, node);
-			env++;
+			free_env(&head);
+			return (NULL);
 		}
+		add_to_env(&head, node);
+		env++;
 	}
 	return (head);
 }

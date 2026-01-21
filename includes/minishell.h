@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/20 14:58:18 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 13:56:31 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int				export_with_args(t_env *environement,
 int				call_env(t_env *env);
 int				verify_identifier(char **command, int i, int j, char *temp);
 int				export_str(t_env *env, char **to_export, int equal);
-t_env			*sorting_list(t_env *environement);
+t_env			*sorting_list(t_env *environement,
+					char *key, char *value, t_env *temp);
 char			*cd_home(t_env *env);
 char			*cd_builtin(char *path, char *string_after_cd, int x);
 t_long_verif	*ft_verif_atoll(const char *nptr, int sign,
@@ -87,7 +88,6 @@ int				wait_children(pid_t last_pid, int count);
 void			child_execute(t_command *cmd,
 					int prev_fd, int next_fd, t_env *env);
 int				execute_commands(t_command *cmd, t_env *env, int count);
-t_env			*default_env(char **env);
 
 /* quit_shell.c */
 void			quit_shell(int exit_status, t_env *env);

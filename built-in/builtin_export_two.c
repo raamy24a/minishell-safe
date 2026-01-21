@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:31:27 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 01:39:50 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 13:57:15 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	export_builtin(t_env *environement, char **command, int verify)
 	x = 0;
 	if (!command[1])
 	{
-		sorted_env = sorting_list(environement);
+		sorted_env = sorting_list(environement, NULL, NULL, NULL);
 		temp = sorted_env;
 		while (temp->next)
 		{

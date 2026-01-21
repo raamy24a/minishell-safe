@@ -1,0 +1,23 @@
+$var
+a
+b
+bonjour
+built-in
+cat
+core
+en.subject (1).pdf
+env
+error_manager
+execution
+expand
+includes
+lexer
+libft
+ll
+lol
+Makefile
+minishell
+out
+parser
+test
+TO_DO_LIST.txt

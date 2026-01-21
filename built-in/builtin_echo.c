@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 15:20:31 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 10:53:23 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ int	echobuiltin(char **string, int newline, int x)
 {
 	int	i;
 	int	j;
-	int	jump;
 
-	jump = 1;
-	j = -1;
-	while (jump || string[j][0] == '-')
+	j = 0;
+	while (string[j][0] == '-')
 	{
-		j++;
 		i = 1;
 		while (string[j][i] && string[j][i] == 'n')
 			i++;
@@ -48,7 +45,7 @@ int	echobuiltin(char **string, int newline, int x)
 			newline = 0;
 		else
 			break ;
-		jump = 0;
+		j++;
 	}
 	echo_write(&string[j - 1], x, 0);
 	if (newline == 1)

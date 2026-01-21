@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 01:39:24 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 13:55:32 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ int	list_not_sorted(t_env *list)
 	return (0);
 }
 
-t_env	*sorting_list(t_env *environement)
+t_env	*sorting_list(t_env *environement, char *key, char *value, t_env *temp)
 {
 	t_env	*to_sort;
-	t_env	*temp;
-	char	*key;
-	char	*value;
+	int		status;
 
 	if (!environement)
 		return (NULL);
@@ -73,11 +71,14 @@ t_env	*sorting_list(t_env *environement)
 		if (temp->next)
 		{
 			key = temp->key;
+			status = temp->status;
 			value = temp->value;
 			temp->key = temp->next->key;
+			temp->status = temp->next->status;
 			temp->value = temp->next->value;
 			temp->next->key = key;
 			temp->next->value = value;
+			temp->next->status = status;
 		}
 	}
 	return (to_sort);
