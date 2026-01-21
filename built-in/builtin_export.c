@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 13:55:32 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 16:12:51 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	export_str(t_env *env, char **to_export, int equal)
 	temp = env;
 	while (temp->next && ft_strcmp (to_export[0], temp->key) != 0)
 		temp = temp->next;
+	if (!ft_strcmp (to_export[0], "_"))
+		return (0);
 	if (ft_strcmp (to_export[0], temp->key) == 0)
 		export_old_var(temp, to_export[1], equal);
 	else
