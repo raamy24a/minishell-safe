@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 00:20:02 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 16:47:34 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 00:33:33 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ static char	*strip_quotes(const char *token)
 
 char	**expand_dollars(char *s, int x, t_env *env)
 {
-	t_env	*tmp;
 	char	*temp;
 	char	**return_str;
 
 	return_str = malloc(sizeof(char *) * 3);
-	tmp = env;
 	while (s[x] >= '0' && (s[x] <= '9' || s[x] >= 'A')
 		&& (s[x] <= 'Z' || s[x] >= 'a') && (s[x] <= 'z' || s[x] == '_'))
 		x++;
@@ -119,14 +117,29 @@ int	expand_str_two(char **str, char **argv, int i)
 		return (-1);
 	return (ft_strlen(str[0]) - 1);
 }
+int	skip_single(char *argv, int i)
+{
+		if (argv[i] == 39)
+	{
+		while (argv[++i] != 39)
+			;
+	}
+	return (i);
+}
 
 int	expand_argv(char **argv, int i, int last_status, t_env *env)
 {
 	int	last;
+	int yes;
 
+	yes = 1;
 	while (argv[0][i])
 	{
 		last = i;
+		if (argv[0][i] == '"')
+			yes *= -1;
+		if (yes == 1)
+			i = skip_single(argv[0], i);
 		if (argv[0][i] == '$')
 		{
 			if (argv[0][i + 1] && argv[0][i + 1] == '?')

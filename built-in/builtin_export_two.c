@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:31:27 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 18:37:10 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 01:39:50 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int	export_with_args(t_env *environement, char **command, int i, int verify)
 	char	**command_split;
 	int		equal;
 
-	command_split = ft_calloc(sizeof(char *), 3);
 	while (command[++i])
 	{
+		command_split = ft_calloc(sizeof(char *), 3);
 		j = 0;
-		while (command[i][j] && command[i][j] != '=')
+		while (ft_strlen(command[i]) && command[i][j] && command[i][j] != '=')
 			j++;
 		if (command[i][j] == '=')
 			equal = 1;
@@ -69,7 +69,7 @@ int	export_with_args(t_env *environement, char **command, int i, int verify)
 		if (!command_split)
 			return (0);
 		if (verify == 1 && verify_identifier(command_split
-				, i, 0, command_split[i]) != 1)
+				, 0, 0, command_split[0]) != 1)
 			continue ;
 		else
 			export_str(environement, &command_split[0], equal);

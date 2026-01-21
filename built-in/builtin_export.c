@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 19:44:22 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/21 01:39:24 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ t_env	*sorting_list(t_env *environement)
 
 int	verify_identifier(char **command, int i, int j, char *temp)
 {
+	if (!ft_strlen(command[0]))
+		return(20);
 	if (ft_isalpha(command[i][j]) == 0 && command[i][j] != '_' && i % 2 == 0)
 		return (printf("minishell: export: `%s=%s': not a valid identifier\n"
 				, temp, command[i + 1]));
