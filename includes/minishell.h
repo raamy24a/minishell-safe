@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/21 13:56:31 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 11:12:24 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				interactive_shell(t_env *env);
 
 /* prompt_execution.c */
 int				is_builtin(char *builtin_str);
-int				prompt_execution(char *user_input, t_env *env);
+int				prompt_execution(char *user_input, t_env *env, int last_status);
 int				px_exec(char **cmd, char **env_str);
 int				apply_redirections(t_redir *redir,
 					int *input_fd, int *output_fd);

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/19 22:17:20 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 09:09:10 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	px_exec(char **args, char **env_str)
 	}
 	execve(path, args, env_str);
 	perror("execve");
-	if (path)
-		free(path);
 	free_split(args);
 	return (EXIT_FAILURE);
 }

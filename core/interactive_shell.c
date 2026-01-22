@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:31:36 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/13 13:29:05 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 11:15:32 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	interactive_shell(t_env *env)
 		if (!user_input)
 			break ;
 		if (*user_input)
-			last_status = prompt_execution(user_input, env);
+			last_status = prompt_execution(user_input, env, last_status);
 		free(user_input);
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:34:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/20 11:59:36 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 11:13:01 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,20 @@ int	run_pipeline(t_shell *tokens, t_env *env, int last_status)
 	return (status);
 }
 
-int	prompt_execution(char *user_input, t_env *env)
+int	prompt_execution(char *user_input, t_env *env, int last_status)
 {
 	t_shell	*token_list;
 	int		status;
 
+	status = 2;
 	token_list = NULL;
-	status = 0;
 	if (!lexer(user_input, &token_list))
 		status = 2;
 	else if (token_list)
-		status = run_pipeline(token_list, env, status);
+		status = run_pipeline(token_list, env, last_status);
 	free_token_list(&token_list);
-	return (status);
+	last_status = status;
+	return (last_status);
 }
 
 int	is_builtin(char *builtin_str)
