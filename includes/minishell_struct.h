@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:38:39 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/20 00:34:32 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 15:48:29 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+
+
 typedef struct s_shell
 {
 	t_env			*env;
@@ -108,4 +110,11 @@ typedef struct s_long_long_verif
 	long long	nbr;
 	int			status;
 }	t_long_verif;
+
+typedef struct s_f
+{
+	t_shell		*tokens;
+	t_command	*cmds;
+}	t_f;
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/22 11:12:24 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 16:57:52 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char			**env_to_char_array(t_env *env, int i);
 /* Signaux*/
 void			handler(int sig);
 /*expend*/
-void 			expand_commands(t_command *cmds, t_env *env, int last_status);
+void			expand_commands(t_command *cmds, t_env *env,
+					int last_status);
 
 /* init_shell.c */
 t_env			*init_shell(char **envp);
@@ -78,16 +79,17 @@ int				interactive_shell(t_env *env);
 /* prompt_execution.c */
 int				is_builtin(char *builtin_str);
 int				prompt_execution(char *user_input, t_env *env, int last_status);
-int				px_exec(char **cmd, char **env_str);
+int				px_exec(char **args, char **env_str, t_f **tc);
 int				apply_redirections(t_redir *redir,
 					int *input_fd, int *output_fd);
 int				exec_builtin(int x, char **command, t_env *env);
-pid_t			launch_command(t_command *cmd,
+pid_t			launch_command(t_f **tc,
 					int prev_fd, int next_fd, t_env *env);
 int				wait_children(pid_t last_pid, int count);
-void			child_execute(t_command *cmd,
+void			child_execute(t_f **tc,
 					int prev_fd, int next_fd, t_env *env);
-int				execute_commands(t_command *cmd, t_env *env, int count);
+int				execute_commands(t_command *cmd, t_env *env,
+					int count, t_f **tc);
 
 /* quit_shell.c */
 void			quit_shell(int exit_status, t_env *env);

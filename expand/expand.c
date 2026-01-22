@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 00:20:02 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 23:45:02 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 15:44:34 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	expand_argv(char **argv, int i, int last_status, t_env *env)
 
 void	expand_commands (t_command *cmds, t_env *env, int last_status)
 {
-	int	i;
+	int			i;
 
 	while (cmds)
 	{

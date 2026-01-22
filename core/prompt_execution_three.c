@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:35:30 by radib             #+#    #+#             */
-/*   Updated: 2026/01/17 05:29:17 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 16:57:08 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	child_execute_suite(t_command *cmd,
 		close(output_fd);
 }
 
-void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
+void	child_execute(t_f **tc, int prev_fd, int next_fd, t_env *env)
 {
 	int		input_fd;
 	int		output_fd;
@@ -52,28 +52,28 @@ void	child_execute(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 		input_fd = STDIN_FILENO;
 	if (output_fd == -1)
 		output_fd = STDOUT_FILENO;
-	child_execute_suite(cmd, input_fd, output_fd, env);
+	child_execute_suite((*tc)->cmds, input_fd, output_fd, env);
 	if (prev_fd != -1 && prev_fd != input_fd)
 		close(prev_fd);
 	if (next_fd != -1 && next_fd != output_fd)
 		close(next_fd);
-	if (is_builtin_child(cmd->argv[0]))
-		exit_call_silent(exec_builtin(is_builtin_child(cmd->argv[0]),
-				cmd->argv, env), env);
+	if (is_builtin_child((*tc)->cmds->argv[0]))
+		exit_call_silent(exec_builtin(is_builtin_child((*tc)->cmds->argv[0]),
+				(*tc)->cmds->argv, env), env);
 	str_env = env_to_char_array(env, 0);
-	px_exec(cmd->argv, str_env);
+	px_exec((*tc)->cmds->argv, str_env, tc);
 	free_split(str_env);
 	exit_call(127, env);
 }
 
 int	execute_commands_suite(pid_t last_pid
-		, t_command *cmd, t_env *env, int pipefd[2])
+		, t_f **tc, t_env *env, int pipefd[2])
 {
 	int		prev_fd;
 
 	prev_fd = -1;
 	last_pid = -1;
-	last_pid = launch_command(cmd, prev_fd, pipefd[1], env);
+	last_pid = launch_command(tc, prev_fd, pipefd[1], env);
 	if (last_pid < 0)
 		return (1);
 	if (prev_fd != -1)
@@ -81,11 +81,11 @@ int	execute_commands_suite(pid_t last_pid
 	if (pipefd[1] != -1)
 		close(pipefd[1]);
 	prev_fd = pipefd[0];
-	cmd = cmd->next;
+	(*tc)->cmds = (*tc)->cmds->next;
 	return (0);
 }
 
-int	execute_commands(t_command *cmd, t_env *env, int count)
+int	execute_commands(t_command *cmd, t_env *env, int count, t_f **tc)
 {
 	pid_t	last_pid;
 	int		pipefd[2];
@@ -103,7 +103,7 @@ int	execute_commands(t_command *cmd, t_env *env, int count)
 			pipefd[0] = -1;
 			pipefd[1] = -1;
 		}
-		if (execute_commands_suite(last_pid, cmd, env, pipefd))
+		if (execute_commands_suite(last_pid, tc, env, pipefd))
 			return (1);
 		cmd = cmd->next;
 		count++;

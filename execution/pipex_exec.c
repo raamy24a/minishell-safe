@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:12:00 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/22 09:09:10 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 17:07:48 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	return (ft_split(cmd, " "));
 // }
 
-int	px_exec(char **args, char **env_str)
+int	px_exec(char **args, char **env_str, t_f **tc)
 {
 	char	*path;
 
@@ -38,7 +38,9 @@ int	px_exec(char **args, char **env_str)
 	{
 		ft_putstr_fd("Command not found: ", STDERR_FILENO);
 		ft_putendl_fd(args[0], STDERR_FILENO);
-		free_split(args);
+		free_command_list(&(*tc)->cmds);
+		free_token_list(&(*tc)->tokens);
+		free(*tc);
 		return (127);
 	}
 	execve(path, args, env_str);

@@ -6,20 +6,20 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:34:38 by radib             #+#    #+#             */
-/*   Updated: 2026/01/22 11:13:01 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 16:53:26 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-pid_t	launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
+pid_t	launch_command(t_f **tc, int prev_fd, int next_fd, t_env *env)
 {
 	pid_t				pid;
 
-	if (!cmd->argv)
+	if (!(*tc)->cmds->argv)
 		return (0);
-	if (is_builtin(cmd->argv[0]))
-		return (exec_builtin(is_builtin(cmd->argv[0]), cmd->argv, env));
+	if (is_builtin((*tc)->cmds->argv[0]))
+		return (exec_builtin(is_builtin((*tc)->cmds->argv[0]), (*tc)->cmds->argv, env));
 	else
 	{
 		pid = fork();
@@ -29,7 +29,7 @@ pid_t	launch_command(t_command *cmd, int prev_fd, int next_fd, t_env *env)
 			return (-1);
 		}
 		if (pid == 0)
-			child_execute(cmd, prev_fd, next_fd, env);
+			child_execute(tc, prev_fd, next_fd, env);
 		return (pid);
 	}
 }
@@ -67,7 +67,11 @@ int	run_pipeline(t_shell *tokens, t_env *env, int last_status)
 {
 	t_command	*cmds;
 	int			status;
+	t_f			*tc;
 
+	tc = malloc (sizeof (t_f));
+	if (!tc)
+		return (-1);
 	(void)env;
 	cmds = NULL;
 	status = 0;
@@ -75,8 +79,10 @@ int	run_pipeline(t_shell *tokens, t_env *env, int last_status)
 		status = 2;
 	else if (cmds && cmds->argv)
 	{
+		tc->cmds = cmds;
+		tc->tokens = tokens;
 		expand_commands(cmds, env, last_status);
-		status = execute_commands(cmds, env, 0);
+		status = execute_commands(cmds, env, 0, &tc);
 	}
 	free_command_list(&cmds);
 	return (status);

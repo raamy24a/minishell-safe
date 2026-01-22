@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:18:57 by radib             #+#    #+#             */
-/*   Updated: 2026/01/22 09:38:11 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 14:19:37 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ char	*px_find_path(char *cmd, char **envp)
 		free(candidate);
 		i++;
 	}
-	return (NULL);
+	return (free_split(paths), NULL);
 }

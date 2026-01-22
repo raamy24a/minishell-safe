@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 18:14:18 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 11:08:22 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/22 14:32:26 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	export_old_var(t_env *temp, char *to_export, int equal)
 {
 	if (temp->value)
 		free(temp->value);
-	temp->value = ft_strdup(to_export);
+	temp->value = to_export;
 	if (temp->value == NULL && temp->status == 2)
 		return ;
 	else
@@ -30,8 +30,8 @@ void	export_new_var(t_env *temp, char **to_export, int equal)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return ;
-	new->key = ft_strdup(to_export[0]);
-	new->value = ft_strdup(to_export[1]);
+	new->key = to_export[0];
+	new->value = to_export[1];
 	new->status = equal_choice(equal, new->value);
 	new->next = NULL;
 	temp->next = new;
