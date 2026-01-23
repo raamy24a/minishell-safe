@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 00:20:02 by radib             #+#    #+#             */
-/*   Updated: 2026/01/23 03:58:38 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:59:46 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,4 @@ void	expand_commands (t_command *cmds, t_env *env, int last_status)
 		}
 		cmds = cmds->next;
 	}
-	
 }
