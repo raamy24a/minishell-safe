@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:04 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/22 11:45:37 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 01:37:28 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	parser(t_shell *tokens, t_command **out)
 	}
 	if (!parse_tokens(tokens, all))
 	{
-		return (free_command_list(&head), 0);
+		return (free(all), free_command_list(&head), 0);
 	}
 	if (current && !current->argc && !current->redirs)
 	{
-		return (free_command_list(&head), 0);
+		return (free(all), free_command_list(&head), 0);
 	}
 	*out = head;
 	free (all);

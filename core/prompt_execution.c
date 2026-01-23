@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:32:14 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/20 15:20:14 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:39:16 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ void	exec_exit(char **command, t_env *env)
 	exit_call(ft_atoi(command[1], 1, 0, 0), env);
 }
 
-int	exec_builtin(int x, char **command, t_env *env)
+int	exec_builtin(int x, char **command, t_env *env, t_f **tc)
 {
 	t_env	*temp;
 
 	temp = NULL;
 	if (x == 1)
-		return (echobuiltin(&command[1], 1, 0));
+		return (echobuiltin(&command[1], 1, 0, tc));
 	if (x == 2)
-		return (call_pwd());
+		return (call_pwd(tc));
 	if (x == 3)
 		return (export_builtin(env, command, 1));
 	if (x == 4)
@@ -116,6 +116,6 @@ int	exec_builtin(int x, char **command, t_env *env)
 	if (x == 6)
 		exec_exit(command, env);
 	if (x == 7)
-		return (call_env(env));
+		return (call_env(env, tc));
 	return (0);
 }

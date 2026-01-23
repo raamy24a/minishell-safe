@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:04 by acollon           #+#    #+#             */
-/*   Updated: 2025/12/16 14:12:08 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 01:34:28 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	free_argv(t_command *cmd)
 	if (!cmd || !cmd->argv)
 		return ;
 	i = 0;
-	while (i < cmd->argc)
+	while (cmd->argv[i])
 	{
 		free(cmd->argv[i]);
 		i++;

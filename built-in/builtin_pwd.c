@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 22:36:10 by radib             #+#    #+#             */
-/*   Updated: 2026/01/19 09:59:25 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:44:05 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_pwd(void)
 	return (NULL);
 }
 
-int	call_pwd(void)
+int	call_pwd(t_f **tc)
 {
 	char	buffer[4096 + 1];
 
@@ -36,7 +36,9 @@ int	call_pwd(void)
 	if (getcwd(buffer, 4096) != NULL)
 	{
 		printf("%s\n", buffer);
+		free_tc(tc);
 		return (0);
 	}
+	free_tc(tc);
 	return (errno);
 }

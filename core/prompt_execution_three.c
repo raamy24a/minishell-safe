@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:35:30 by radib             #+#    #+#             */
-/*   Updated: 2026/01/22 16:57:08 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:48:20 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	child_execute(t_f **tc, int prev_fd, int next_fd, t_env *env)
 		close(next_fd);
 	if (is_builtin_child((*tc)->cmds->argv[0]))
 		exit_call_silent(exec_builtin(is_builtin_child((*tc)->cmds->argv[0]),
-				(*tc)->cmds->argv, env), env);
+				(*tc)->cmds->argv, env, tc), env);
 	str_env = env_to_char_array(env, 0);
 	px_exec((*tc)->cmds->argv, str_env, tc);
 	free_split(str_env);

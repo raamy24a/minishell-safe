@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 14:37:41 by acollon           #+#    #+#             */
-/*   Updated: 2026/01/22 16:57:52 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:43:33 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 
 /* --BUILTINS-- */
 int				call_cd(t_env *env, char *string_after_cd);
-int				echobuiltin(char **string, int newline, int x);
+int				echobuiltin(char **string, int newline, int x, t_f **tc);
 int				exit_call(int x, t_env *env);
 int				exit_call_silent(int x, t_env *env);
 int				export_builtin(t_env *environement, char **command, int verify);
-int				call_pwd(void);
+int				call_pwd(t_f **tc);
 char			**ft_split(char *str, char *charset);
 void			ft_lstadd_back_env(t_env *lst, t_env *new);
 char			*get_value_of_key(t_env *env, char *key);
@@ -45,7 +45,7 @@ char			*get_pwd(void);
 int				builtin_unset(t_env *env, char **to_unset, t_env *temp, int x);
 int				export_with_args(t_env *environement,
 					char **command, int i, int verify);
-int				call_env(t_env *env);
+int				call_env(t_env *env, t_f **tc);
 int				verify_identifier(char **command, int i, int j, char *temp);
 int				export_str(t_env *env, char **to_export, int equal);
 t_env			*sorting_list(t_env *environement,
@@ -63,6 +63,8 @@ void			export_new_var(t_env *temp, char **to_export, int equal);
 // CORE
 /*Env manip*/
 char			**env_to_char_array(t_env *env, int i);
+/*free*/
+void			free_tc(t_f **tc);
 
 /* Signaux*/
 void			handler(int sig);
@@ -82,7 +84,7 @@ int				prompt_execution(char *user_input, t_env *env, int last_status);
 int				px_exec(char **args, char **env_str, t_f **tc);
 int				apply_redirections(t_redir *redir,
 					int *input_fd, int *output_fd);
-int				exec_builtin(int x, char **command, t_env *env);
+int				exec_builtin(int x, char **command, t_env *env, t_f **tc);
 pid_t			launch_command(t_f **tc,
 					int prev_fd, int next_fd, t_env *env);
 int				wait_children(pid_t last_pid, int count);

@@ -6,7 +6,7 @@
 /*   By: radib <radib@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 03:04:19 by radib             #+#    #+#             */
-/*   Updated: 2026/01/21 10:53:23 by radib            ###   ########.fr       */
+/*   Updated: 2026/01/23 03:43:07 by radib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	echo_write(char **string, int x, int i)
 	return (i);
 }
 
-int	echobuiltin(char **string, int newline, int x)
+int	echobuiltin(char **string, int newline, int x, t_f **tc)
 {
 	int	i;
 	int	j;
@@ -50,5 +50,6 @@ int	echobuiltin(char **string, int newline, int x)
 	echo_write(&string[j - 1], x, 0);
 	if (newline == 1)
 		printf("\n");
+	free_tc(tc);
 	return (0);
 }
